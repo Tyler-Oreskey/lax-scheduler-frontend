@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Form from './Form/Form';
 
+import axios from '../../../axios';
+
 class Login extends Component {
   state = {
     email: '',
@@ -12,8 +14,17 @@ class Login extends Component {
     this.setState({ [name]: value });
   };
 
-  handleSubmit = (e) => {
-    e.preventDefault();
+  handleSubmit = async (e) => {
+    try {
+      e.preventDefault();
+
+      await axios.users.post('/login', {
+        email: this.state.email,
+        password: this.state.password,
+      });
+    } catch (error) {
+      // handle error here
+    }
   };
 
   render() {

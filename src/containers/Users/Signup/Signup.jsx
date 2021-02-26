@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
 import Form from './Form/Form';
 
+import axios from '../../../axios';
+
 class Signup extends Component {
   state = {
-    firstName: '',
-    lastName: '',
+    first_name: '',
+    last_name: '',
     email: '',
     password: '',
     confirmedPassword: '',
-    receiveEmailUpdates: false,
+    receive_emails: false,
   };
 
   handleInputChange = (e) => {
@@ -21,8 +23,20 @@ class Signup extends Component {
     this.setState({ [name]: checked });
   };
 
-  handleSubmit = (e) => {
-    e.preventDefault();
+  handleSubmit = async (e) => {
+    try {
+      e.preventDefault();
+
+      await axios.users.post(null, {
+        first_name: this.state.first_name,
+        last_name: this.state.last_name,
+        email: this.state.email,
+        password: this.state.password,
+        receive_emails: this.state.receive_emails,
+      });
+    } catch (error) {
+      // handle error here
+    }
   };
 
   render() {

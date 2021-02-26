@@ -7,18 +7,18 @@ const Form = (props) => {
         <label>First Name</label>
         <input
           type="text"
-          name="firstName"
+          name="first_name"
           onChange={props.handleInputChange}
-          value={props.firstName}
+          value={props.first_name}
         />
       </div>
       <div>
         <label>Last Name</label>
         <input
           type="text"
-          name="lastName"
+          name="last_name"
           onChange={props.handleInputChange}
-          value={props.lastName}
+          value={props.last_name}
         />
       </div>
       <div>
@@ -52,9 +52,9 @@ const Form = (props) => {
         <label>Receive email updated</label>
         <input
           type="checkbox"
-          name="receiveEmailUpdates"
+          name="receive_emails"
           onChange={props.handleChecked}
-          value={props.receiveEmailUpdates}
+          value={props.receive_emails}
         />
       </div>
       <div>
