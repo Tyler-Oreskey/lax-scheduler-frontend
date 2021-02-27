@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import SignupForm from '../../../components/Users/SignupForm/SignupForm';
 
 import axios from '../../../axios';
+import FormBuilder from '../../../hoc/Form/FormBuilder';
+import Button from '../../../components/UI/Button/Button';
 
 class Signup extends Component {
   state = {
@@ -80,6 +81,7 @@ class Signup extends Component {
         password: this.state.formElements.password.value,
         receive_emails: this.state.formElements.receive_emails.value,
       };
+      console.log(body);
 
       await axios.users.post(null, body);
     } catch (error) {
@@ -89,11 +91,13 @@ class Signup extends Component {
 
   render() {
     return (
-      <SignupForm
-        formElements={this.state.formElements}
-        handleInputChange={this.handleInputChange}
-        handleSubmit={this.handleSubmit}
-      />
+      <form onSubmit={this.handleSubmit}>
+        <FormBuilder
+          formElements={this.state.formElements}
+          handleInputChange={this.handleInputChange}
+        />
+        <Button type="submit" buttonText="Create" class="primary" />
+      </form>
     );
   }
 }

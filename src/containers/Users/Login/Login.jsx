@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 
-import LoginForm from '../../../components/Users/LoginForm/LoginForm';
 import axios from '../../../axios';
+import FormBuilder from '../../../hoc/Form/FormBuilder';
+import Button from '../../../components/UI/Button/Button';
 
 class Login extends Component {
   state = {
@@ -49,11 +50,13 @@ class Login extends Component {
 
   render() {
     return (
-      <LoginForm
-        formElements={this.state.formElements}
-        handleInputChange={this.handleInputChange}
-        handleSubmit={this.handleSubmit}
-      />
+      <form onSubmit={this.handleSubmit}>
+        <FormBuilder
+          formElements={this.state.formElements}
+          handleInputChange={this.handleInputChange}
+        />
+        <Button type="submit" buttonText="Login" class="primary" />
+      </form>
     );
   }
 }
