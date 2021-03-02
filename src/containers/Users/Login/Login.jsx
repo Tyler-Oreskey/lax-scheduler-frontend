@@ -1,38 +1,39 @@
 import React, { Component } from 'react';
-import Form from './Form/Form';
 
-import axios from '../../../axios';
+import LoginForm from '../../../components/Users/LoginForm/LoginForm';
 
 class Login extends Component {
   state = {
-    email: '',
-    password: '',
-  };
-
-  handleInputChange = (e) => {
-    const { name, value } = e.target;
-    this.setState({ [name]: value });
-  };
-
-  handleSubmit = async (e) => {
-    try {
-      e.preventDefault();
-
-      await axios.users.post('/login', {
-        email: this.state.email,
-        password: this.state.password,
-      });
-    } catch (error) {
-      // handle error here
-    }
+    formElements: {
+      email: {
+        label: 'Email',
+        type: 'email',
+        name: 'email',
+        placeholder: 'Enter email',
+        autoComplete: 'on',
+        value: '',
+        isSubmitted: true,
+      },
+      password: {
+        label: 'Password',
+        type: 'password',
+        name: 'password',
+        placeholder: 'Enter password',
+        autoComplete: 'on',
+        value: '',
+        isSubmitted: true,
+      },
+    },
+    formEndpoint: 'user/login',
+    method: 'post',
   };
 
   render() {
     return (
-      <Form
-        {...this.state}
-        handleInputChange={this.handleInputChange}
-        handleSubmit={this.handleSubmit}
+      <LoginForm
+        formElements={this.state.formElements}
+        formEndpoint={this.state.formEndpoint}
+        method={this.state.method}
       />
     );
   }

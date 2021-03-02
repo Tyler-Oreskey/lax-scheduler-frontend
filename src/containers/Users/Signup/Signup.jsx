@@ -1,51 +1,75 @@
 import React, { Component } from 'react';
-import Form from './Form/Form';
 
-import axios from '../../../axios';
+import SignupForm from '../../../components/Users/SignupForm/SignupForm';
 
 class Signup extends Component {
   state = {
-    first_name: '',
-    last_name: '',
-    email: '',
-    password: '',
-    confirmedPassword: '',
-    receive_emails: false,
-  };
-
-  handleInputChange = (e) => {
-    const { name, value } = e.target;
-    this.setState({ [name]: value });
-  };
-
-  handleChecked = (e) => {
-    const { name, checked } = e.target;
-    this.setState({ [name]: checked });
-  };
-
-  handleSubmit = async (e) => {
-    try {
-      e.preventDefault();
-
-      await axios.users.post(null, {
-        first_name: this.state.first_name,
-        last_name: this.state.last_name,
-        email: this.state.email,
-        password: this.state.password,
-        receive_emails: this.state.receive_emails,
-      });
-    } catch (error) {
-      // handle error here
-    }
+    formElements: {
+      first_name: {
+        label: 'First Name',
+        type: 'text',
+        name: 'first_name',
+        placeholder: 'Enter first name',
+        autoComplete: 'on',
+        value: '',
+        isSubmitted: true,
+      },
+      last_name: {
+        label: 'Last Name',
+        type: 'text',
+        name: 'last_name',
+        placeholder: 'Enter last name',
+        autoComplete: 'on',
+        value: '',
+        isSubmitted: true,
+      },
+      email: {
+        label: 'Email',
+        type: 'email',
+        name: 'email',
+        placeholder: 'Enter email',
+        autoComplete: 'on',
+        value: '',
+        isSubmitted: true,
+      },
+      password: {
+        label: 'Password',
+        type: 'password',
+        name: 'password',
+        placeholder: 'Enter password',
+        autoComplete: 'on',
+        value: '',
+        isSubmitted: true,
+      },
+      confirmedPassword: {
+        label: 'Confirm Password',
+        type: 'password',
+        name: 'confirmedPassword',
+        placeholder: 'Confirm name',
+        autoComplete: 'on',
+        value: '',
+        isSubmitted: false,
+      },
+      receive_emails: {
+        label: 'Receive email updates',
+        type: 'checkbox',
+        name: 'receive_emails',
+        placeholder: 'Receive email updates',
+        autoComplete: 'on',
+        value: false,
+        isSubmitted: true,
+      },
+    },
+    formEndpoint: 'user',
+    method: 'post',
   };
 
   render() {
     return (
-      <Form
-        {...this.state}
-        handleInputChange={this.handleInputChange}
-        handleChecked={this.handleChecked}
-        handleSubmit={this.handleSubmit}
+      <SignupForm
+        formElements={this.state.formElements}
+        formEndpoint={this.state.formEndpoint}
+        method={this.state.method}
       />
     );
   }
