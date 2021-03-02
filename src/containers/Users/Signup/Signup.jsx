@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 
-import axios from '../../../axios';
-import FormBuilder from '../../../hoc/Form/FormBuilder';
-import Button from '../../../components/UI/Button/Button';
+import SignupForm from '../../../components/Users/SignupForm/SignupForm';
 
 class Signup extends Component {
   state = {
@@ -12,92 +10,67 @@ class Signup extends Component {
         type: 'text',
         name: 'first_name',
         placeholder: 'Enter first name',
-        autocomplete: 'first name',
+        autoComplete: 'on',
         value: '',
+        isSubmitted: true,
       },
       last_name: {
         label: 'Last Name',
         type: 'text',
         name: 'last_name',
         placeholder: 'Enter last name',
-        autocomplete: 'last name',
+        autoComplete: 'on',
         value: '',
+        isSubmitted: true,
       },
       email: {
         label: 'Email',
         type: 'email',
         name: 'email',
         placeholder: 'Enter email',
-        autocomplete: 'email',
+        autoComplete: 'on',
         value: '',
+        isSubmitted: true,
       },
       password: {
         label: 'Password',
         type: 'password',
         name: 'password',
         placeholder: 'Enter password',
-        autocomplete: 'password',
+        autoComplete: 'on',
         value: '',
+        isSubmitted: true,
       },
       confirmedPassword: {
         label: 'Confirm Password',
         type: 'password',
         name: 'confirmedPassword',
         placeholder: 'Confirm name',
-        autocomplete: 'confirm password',
+        autoComplete: 'on',
         value: '',
+        isSubmitted: false,
       },
       receive_emails: {
         label: 'Receive email updates',
         type: 'checkbox',
         name: 'receive_emails',
         placeholder: 'Receive email updates',
-        autocomplete: 'receive email updates',
-        value: '',
+        autoComplete: 'on',
+        value: false,
+        isSubmitted: true,
       },
     },
-  };
-
-  handleInputChange = (e) => {
-    let { name, value, type } = e.target;
-
-    if (type === 'checkbox') {
-      value = e.target.checked;
-    }
-
-    const { formElements } = { ...this.state };
-    formElements[name].value = value;
-    this.setState({ formElements });
-  };
-
-  handleSubmit = async (e) => {
-    try {
-      e.preventDefault();
-
-      const body = {
-        first_name: this.state.formElements.first_name.value,
-        last_name: this.state.formElements.last_name.value,
-        email: this.state.formElements.email.value,
-        password: this.state.formElements.password.value,
-        receive_emails: this.state.formElements.receive_emails.value,
-      };
-      console.log(body);
-
-      await axios.users.post(null, body);
-    } catch (error) {
-      // handle error here
-    }
+    formEndpoint: 'user',
+    method: 'post',
   };
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <FormBuilder
-          formElements={this.state.formElements}
-          handleInputChange={this.handleInputChange}
-        />
-        <Button type="submit" buttonText="Create" class="primary" />
-      </form>
+      <SignupForm
+        formElements={this.state.formElements}
+        formEndpoint={this.state.formEndpoint}
+        method={this.state.method}
+      />
     );
   }
 }

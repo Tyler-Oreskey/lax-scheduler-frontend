@@ -10,6 +10,7 @@ const Input = (props) => {
         name={props.name}
         placeholder={props.placeholder}
         value={props.value}
+        autoComplete={props.autoComplete}
         onChange={props.onChange}
       />
     </div>
@@ -20,7 +21,7 @@ Input.propTypes = {
   label: propTypes.string.isRequired,
   type: propTypes.string.isRequired,
   name: propTypes.string.isRequired,
-  autocomplete: propTypes.string.isRequired,
+  autoComplete: propTypes.string.isRequired,
   value: propTypes.any.isRequired,
   placeholder: propTypes.string.isRequired,
   onChange: propTypes.func.isRequired,

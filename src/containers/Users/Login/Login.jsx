@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 
-import axios from '../../../axios';
-import FormBuilder from '../../../hoc/Form/FormBuilder';
-import Button from '../../../components/UI/Button/Button';
+import LoginForm from '../../../components/Users/LoginForm/LoginForm';
 
 class Login extends Component {
   state = {
@@ -12,51 +10,31 @@ class Login extends Component {
         type: 'email',
         name: 'email',
         placeholder: 'Enter email',
-        autocomplete: 'email',
+        autoComplete: 'on',
         value: '',
+        isSubmitted: true,
       },
       password: {
         label: 'Password',
         type: 'password',
         name: 'password',
         placeholder: 'Enter password',
-        autocomplete: 'password',
+        autoComplete: 'on',
         value: '',
+        isSubmitted: true,
       },
     },
-  };
-
-  handleInputChange = (e) => {
-    const { name, value } = e.target;
-    const { formElements } = { ...this.state };
-    formElements[name].value = value;
-    this.setState({ formElements });
-  };
-
-  handleSubmit = async (e) => {
-    try {
-      e.preventDefault();
-
-      const body = {
-        email: this.state.formElements.email.value,
-        password: this.state.formElements.password.value,
-      };
-
-      await axios.users.post('/login', body);
-    } catch (error) {
-      // handle error here
-    }
+    formEndpoint: 'user/login',
+    method: 'post',
   };
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <FormBuilder
-          formElements={this.state.formElements}
-          handleInputChange={this.handleInputChange}
-        />
-        <Button type="submit" buttonText="Login" class="primary" />
-      </form>
+      <LoginForm
+        formElements={this.state.formElements}
+        formEndpoint={this.state.formEndpoint}
+        method={this.state.method}
+      />
     );
   }
 }
