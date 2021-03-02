@@ -1,4 +1,5 @@
 import React from 'react';
+import propTypes from 'prop-types';
 
 import FormBuilder from '../../../hoc/Form/FormBuilder';
 import FormHandler from '../../../hoc/Form/FormHandler';
@@ -13,5 +14,9 @@ const Form = (props) => (
     <Button type="submit" buttonText="Create" class="primary" />
   </form>
 );
+
+Form.propTypes = {
+  handleSubmit: propTypes.func.isRequired,
+};
 
 export default FormHandler(Form);
