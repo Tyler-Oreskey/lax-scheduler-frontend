@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-
 import propTypes from 'prop-types';
 
 const FormHandler = (Form) => {
-  const SubComponent = class extends Component {
+  return class extends Component {
+    static propTypes = {
+      formElements: propTypes.object.isRequired,
+      formEndpoint: propTypes.string.isRequired,
+      method: propTypes.string.isRequired,
+    };
+
     state = {
       formElements: { ...this.props.formElements },
     };
@@ -23,16 +28,14 @@ const FormHandler = (Form) => {
 
     handleSubmit = async (e) => {
       e.preventDefault();
-
-      const body = Object.values(this.state.formElements)
-        .filter((formElement) => formElement.isSubmitted)
-        .reduce(
-          (object, element) => ({ ...object, [element.name]: element.value }),
-          {}
-        );
-
       try {
-        e.preventDefault();
+        const body = Object.values(this.state.formElements)
+          .filter((formElement) => formElement.isSubmitted)
+          .reduce(
+            (object, element) => ({ ...object, [element.name]: element.value }),
+            {}
+          );
+
         await axios[this.props.method](
           `${process.env.REACT_APP_BASE_URL}/${this.props.formEndpoint}`,
           body
@@ -53,13 +56,6 @@ const FormHandler = (Form) => {
       );
     }
   };
-  SubComponent.propTypes = {
-    formElements: propTypes.object.isRequired,
-    formEndpoint: propTypes.string.isRequired,
-    method: propTypes.string.isRequired,
-  };
-
-  return SubComponent;
 };
 
 export default FormHandler;
